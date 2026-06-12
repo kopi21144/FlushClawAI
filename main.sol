@@ -502,3 +502,129 @@ contract FlushClawAI {
 
     function _cycleTicketMass() internal view returns (uint256 mass) {
         for (uint256 i = 1; i <= FCA_LANE_COUNT; ++i) {
+            mass += lanes[i].massSum;
+        }
+    }
+
+    function _bootLanes() internal {
+        lanes[1] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(4),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 64,
+            laneSalt: 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea
+        });
+        emit Opened(1, 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea, uint8(4), 64);
+        lanes[2] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(6),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 105,
+            laneSalt: 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89
+        });
+        emit Opened(2, 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89, uint8(6), 105);
+        lanes[3] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(5),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 146,
+            laneSalt: 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967
+        });
+        emit Opened(3, 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967, uint8(5), 146);
+        lanes[4] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(7),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 187,
+            laneSalt: 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb
+        });
+        emit Opened(4, 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb, uint8(7), 187);
+        lanes[5] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(3),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 228,
+            laneSalt: 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8
+        });
+        emit Opened(5, 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8, uint8(3), 228);
+        lanes[6] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(8),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 269,
+            laneSalt: 0x44d45f84c1b69a4d8913f7315733f7abe576d7fcc07fbef60171841e3570afdc
+        });
+        emit Opened(6, 0x44d45f84c1b69a4d8913f7315733f7abe576d7fcc07fbef60171841e3570afdc, uint8(8), 269);
+        lanes[7] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(5),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 310,
+            laneSalt: 0x97b36661868ba2a098505260463d95497d4f7af485e7fa219cf02b72bb20d1c1
+        });
+        emit Opened(7, 0x97b36661868ba2a098505260463d95497d4f7af485e7fa219cf02b72bb20d1c1, uint8(5), 310);
+        lanes[8] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(6),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 351,
+            laneSalt: 0x2558b2be49ec3bad79dfef16e6385c1b3c80e134e25fee605c95125304f58523
+        });
+        emit Opened(8, 0x2558b2be49ec3bad79dfef16e6385c1b3c80e134e25fee605c95125304f58523, uint8(6), 351);
+        lanes[9] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(4),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 392,
+            laneSalt: 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea
+        });
+        emit Opened(9, 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea, uint8(4), 392);
+        lanes[10] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(6),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 433,
+            laneSalt: 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89
+        });
+        emit Opened(10, 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89, uint8(6), 433);
+        lanes[11] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(5),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 474,
+            laneSalt: 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967
+        });
+        emit Opened(11, 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967, uint8(5), 474);
+        lanes[12] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(7),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 515,
+            laneSalt: 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb
+        });
+        emit Opened(12, 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb, uint8(7), 515);
+        lanes[13] = FcaLane({
