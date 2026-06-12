@@ -754,3 +754,129 @@ contract FlushClawAI {
         uint256 laneId,
         address runner,
         uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_2));
+    }
+
+    function readTicket_3(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_3));
+    }
+
+    function readTicket_4(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_4));
+    }
+
+    function readTicket_5(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_5));
+    }
+
+    function readTicket_6(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_6));
+    }
+
+    function readTicket_7(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_7));
+    }
+
+    function readTicket_8(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_0));
+    }
+
+    function readTicket_9(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_1));
+    }
+
+    function readTicket_10(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
