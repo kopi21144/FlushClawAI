@@ -628,3 +628,129 @@ contract FlushClawAI {
         });
         emit Opened(12, 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb, uint8(7), 515);
         lanes[13] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(3),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 556,
+            laneSalt: 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8
+        });
+        emit Opened(13, 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8, uint8(3), 556);
+        lanes[14] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(8),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 597,
+            laneSalt: 0x44d45f84c1b69a4d8913f7315733f7abe576d7fcc07fbef60171841e3570afdc
+        });
+        emit Opened(14, 0x44d45f84c1b69a4d8913f7315733f7abe576d7fcc07fbef60171841e3570afdc, uint8(8), 597);
+        lanes[15] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(5),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 638,
+            laneSalt: 0x97b36661868ba2a098505260463d95497d4f7af485e7fa219cf02b72bb20d1c1
+        });
+        emit Opened(15, 0x97b36661868ba2a098505260463d95497d4f7af485e7fa219cf02b72bb20d1c1, uint8(5), 638);
+        lanes[16] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(6),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 679,
+            laneSalt: 0x2558b2be49ec3bad79dfef16e6385c1b3c80e134e25fee605c95125304f58523
+        });
+        emit Opened(16, 0x2558b2be49ec3bad79dfef16e6385c1b3c80e134e25fee605c95125304f58523, uint8(6), 679);
+        lanes[17] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(4),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 720,
+            laneSalt: 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea
+        });
+        emit Opened(17, 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea, uint8(4), 720);
+        lanes[18] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(6),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 761,
+            laneSalt: 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89
+        });
+        emit Opened(18, 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89, uint8(6), 761);
+        lanes[19] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(5),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 802,
+            laneSalt: 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967
+        });
+        emit Opened(19, 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967, uint8(5), 802);
+        lanes[20] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(7),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 843,
+            laneSalt: 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb
+        });
+        emit Opened(20, 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb, uint8(7), 843);
+        lanes[21] = FcaLane({
+            status: FcaLaneStatus.Running,
+            flushTier: uint8(3),
+            startedAt: uint64(block.timestamp),
+            ticketCount: 0,
+            cascadeCount: 0,
+            massSum: 884,
+            laneSalt: 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8
+        });
+        emit Opened(21, 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8, uint8(3), 884);
+    }
+
+    // lane readers
+    function readTicket_0(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_0));
+    }
+
+    function readTicket_1(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
+        uint256 locked,
+        bytes32 digest
+    ) {
+        FcaTicket storage t = tickets[ticketId];
+        laneId = t.laneId;
+        runner = t.runner;
+        tier = t.flushTier;
+        locked = t.lockedWei;
+        digest = keccak256(abi.encode(ticketId, locked, _SALT_1));
+    }
+
+    function readTicket_2(bytes32 ticketId) external view returns (
+        uint256 laneId,
+        address runner,
+        uint8 tier,
