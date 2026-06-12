@@ -250,3 +250,129 @@ contract FlushClawAI {
     fallback() external payable {
         revert FCA_FallbackBlocked();
     }
+
+    function setFlusher(address next_) external onlyPitMaster {
+        if (next_ == address(0)) revert FCA_ZeroAddr();
+        flusher = next_;
+        emit FlusherSet(next_, block.number);
+    }
+
+    function setHalted(bool on) external onlyPitMaster {
+        halted = on;
+        emit Halted(on, msg.sender, block.number);
+    }
+
+    function turnCycle() external onlyPitMaster whenRunning {
+        uint256 n = activeCycle + 1;
+        if (n > 43) revert FCA_CycleOff();
+        activeCycle = n;
+        _beginCycle(n);
+        emit Turned(n, uint64(block.timestamp), _cycleTicketMass(), openCascades);
+    }
+
+    function drainLane(uint256 laneId) external onlyFlusher {
+        FcaLane storage ln = lanes[laneId];
+        if (ln.status == FcaLaneStatus.Empty) revert FCA_LaneDead();
+        ln.status = FcaLaneStatus.Drained;
+    }
+
+    function enrollRunner(address runner, bytes32 tag) external onlyPitMaster {
+        if (runner == address(0)) revert FCA_ZeroAddr();
+        if (runnerBenches[runner].active) revert FCA_RunnerKnown();
+        runnerBenches[runner] = FcaRunnerBench({
+            active: true,
+            tag: tag,
+            joinedAt: uint64(block.timestamp),
+            ticketCount: 0
+        });
+        emit RunnerJoined(runner, tag, 0);
+    }
+
+    function dropRunner(address runner) external onlyPitMaster {
+        if (!runnerBenches[runner].active) revert FCA_NotRunner();
+        runnerBenches[runner].active = false;
+        emit RunnerLeft(runner, block.number);
+    }
+
+    function skimExcess(uint256 amt, address payable to) external onlyPitMaster nonReentrant {
+        if (to == address(0)) revert FCA_ZeroAddr();
+        if (amt == 0 || amt > address(this).balance) revert FCA_ZeroWei();
+        if (amt > address(this).balance - escrowWei) revert FCA_CapHit();
+        _pushNative(to, amt);
+    }
+
+    function postTicket(
+        bytes32 ticketId,
+        uint256 laneId,
+        bytes32 clawSeal,
+        uint8 flushTier
+    ) external payable nonReentrant whenRunning onlyActiveRunner {
+        if (ticketId == bytes32(0)) revert FCA_HashEmpty();
+        if (ticketIdUsed[ticketId]) revert FCA_TicketTaken();
+        if (msg.value < FCA_TICKET_FEE) revert FCA_BondThin();
+        if (flushTier == 0 || flushTier > FCA_TIER_CAP) revert FCA_TierOff();
+        FcaLane storage ln = lanes[laneId];
+        if (ln.status != FcaLaneStatus.Running) revert FCA_LaneDrained();
+        if (ln.ticketCount >= FCA_MAX_TICKETS) revert FCA_CapHit();
+        ticketIdUsed[ticketId] = true;
+        tickets[ticketId] = FcaTicket({
+            laneId: laneId,
+            runner: msg.sender,
+            clawSeal: clawSeal,
+            flushTier: flushTier,
+            upVotes: 0,
+            downVotes: 0,
+            lockedWei: msg.value,
+            postedAt: uint64(block.timestamp),
+            open: true
+        });
+        unchecked {
+            ln.ticketCount += 1;
+            ln.massSum = FcaGauge.safeAdd(
+                ln.massSum, uint256(flushTier) * 89, FCA_MASS_CAP
+            );
+            runnerBenches[msg.sender].ticketCount += 1;
+        }
+        runnerMass[activeCycle][msg.sender] += uint256(flushTier) * 17;
+        escrowWei += msg.value;
+        _ticketsByRunner[msg.sender].push(ticketId);
+        _ticketRoll.push(ticketId);
+        emit Posted(ticketId, laneId, msg.sender, flushTier, msg.value);
+    }
+
+    function voteTicket(bytes32 ticketId, bool up) external whenRunning {
+        FcaTicket storage t = tickets[ticketId];
+        if (!t.open) revert FCA_TicketGone();
+        if (t.runner == msg.sender) revert FCA_VoteSelf();
+        if (voteCast[ticketId][msg.sender]) revert FCA_VoteSpent();
+        voteCast[ticketId][msg.sender] = true;
+        if (up) unchecked { t.upVotes += 1; }
+        else unchecked { t.downVotes += 1; }
+        emit Voted(ticketId, msg.sender, up, activeCycle);
+    }
+
+    function lockTicket(bytes32 ticketId) external payable nonReentrant whenRunning {
+        if (msg.value == 0) revert FCA_ZeroWei();
+        FcaTicket storage t = tickets[ticketId];
+        if (!t.open) revert FCA_TicketGone();
+        t.lockedWei += msg.value;
+        escrowWei += msg.value;
+        emit Locked(ticketId, msg.sender, msg.value, activeCycle);
+    }
+
+    function joinRunner(bytes32 tag) external payable nonReentrant whenRunning {
+        if (msg.value < FCA_FLUSHER_BOND) revert FCA_BondThin();
+        if (runnerBenches[msg.sender].active) revert FCA_RunnerKnown();
+        runnerBenches[msg.sender] = FcaRunnerBench({
+            active: true,
+            tag: tag,
+            joinedAt: uint64(block.timestamp),
+            ticketCount: 0
+        });
+        escrowWei += msg.value;
+        emit RunnerJoined(msg.sender, tag, msg.value);
+    }
+
+    function queueCascade(bytes32 cascadeId, uint256 laneId, bytes32 flushTag)
+        external
+        payable
