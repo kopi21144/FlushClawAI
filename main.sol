@@ -376,3 +376,129 @@ contract FlushClawAI {
     function queueCascade(bytes32 cascadeId, uint256 laneId, bytes32 flushTag)
         external
         payable
+        nonReentrant
+        whenRunning
+        onlyActiveRunner
+    {
+        if (cascadeId == bytes32(0)) revert FCA_HashEmpty();
+        if (cascadeIdUsed[cascadeId]) revert FCA_CascadeLive();
+        if (msg.value < FCA_TICKET_FEE) revert FCA_BondThin();
+        if (openCascades >= FCA_OPEN_CASCADE_CAP) revert FCA_CapHit();
+        FcaLane storage ln = lanes[laneId];
+        if (ln.status != FcaLaneStatus.Running) revert FCA_LaneDrained();
+        cascadeIdUsed[cascadeId] = true;
+        cascades[cascadeId] = FcaCascade({
+            laneId: laneId,
+            proposer: msg.sender,
+            flushTag: flushTag,
+            stage: FcaCascadeStage.Waiting,
+            outcomeHash: bytes32(0),
+            flushRating: 0,
+            queuedAt: uint64(block.timestamp)
+        });
+        unchecked {
+            openCascades += 1;
+            ln.cascadeCount += 1;
+        }
+        escrowWei += msg.value;
+        emit Queued(cascadeId, laneId, flushTag, block.timestamp);
+    }
+
+    function flushCascade(bytes32 cascadeId, bytes32 outcomeHash, uint16 flushRating) external onlyFlusher {
+        FcaCascade storage c = cascades[cascadeId];
+        if (c.stage != FcaCascadeStage.Waiting && c.stage != FcaCascadeStage.Active) revert FCA_CascadeDone();
+        if (flushRating < FCA_RATING_FLOOR) revert FCA_RatingLow();
+        if (flushRating > FCA_RATING_CEIL) revert FCA_RatingHigh();
+        c.stage = FcaCascadeStage.Finalized;
+        c.outcomeHash = outcomeHash;
+        c.flushRating = flushRating;
+        if (openCascades > 0) unchecked { openCascades -= 1; }
+        emit Flushed(cascadeId, outcomeHash, flushRating, activeCycle);
+    }
+
+    function emitBurst(
+        bytes32 burstId,
+        uint256 laneId,
+        bytes32 burstTag,
+        bytes32 ductHash,
+        uint16 pressureBand
+    ) external onlyFlusher whenRunning {
+        if (burstIdUsed[burstId]) revert FCA_FlusherOld();
+        if (pressureBand < FCA_FLUSH_FLOOR) revert FCA_RatingLow();
+        if (pressureBand > FCA_FLUSH_CEIL) revert FCA_RatingHigh();
+        FcaLane storage ln = lanes[laneId];
+        if (ln.status != FcaLaneStatus.Running) revert FCA_LaneDrained();
+        burstIdUsed[burstId] = true;
+        bursts[burstId] = FcaBurst({
+            laneId: laneId,
+            burstTag: burstTag,
+            ductHash: ductHash,
+            pressureBand: pressureBand,
+            stampedAt: uint64(block.timestamp)
+        });
+        emit Burst(burstId, laneId, pressureBand, block.timestamp);
+    }
+
+    function fundLane() external payable whenRunning {
+        if (msg.value == 0) revert FCA_ZeroWei();
+        emit NativeReceived(msg.sender, msg.value, block.number);
+        emit Ripple_1(rippleSerial, msg.sender, msg.value, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function redeemTicket(bytes32 ticketId, address payable to) external nonReentrant whenRunning {
+        FcaTicket storage t = tickets[ticketId];
+        if (!t.open) revert FCA_TicketGone();
+        if (t.runner != msg.sender) revert FCA_SelfRoute();
+        if (to == address(0)) revert FCA_ZeroAddr();
+        uint256 amt = t.lockedWei;
+        if (amt == 0) revert FCA_ZeroWei();
+        t.open = false;
+        t.lockedWei = 0;
+        escrowWei -= amt;
+        _pushNative(to, amt);
+    }
+
+    function _pushNative(address to, uint256 amt) internal {
+        (bool ok, ) = payable(to).call{value: amt}("");
+        if (!ok) revert FCA_SendFail();
+    }
+
+    function _beginCycle(uint256 cycleId) internal {
+        FcaCycleRing storage ring = cycleRings[cycleId];
+        ring.openedAt = uint64(block.timestamp);
+        ring.ticketMass = _cycleTicketMass();
+        ring.cascadeMass = openCascades;
+        ring.ringDigest = _ringDigest(cycleId, ring.ticketMass, ring.cascadeMass);
+    }
+
+    function _ringDigest(uint256 cycleId, uint256 tm, uint256 cm) internal view returns (bytes32) {
+        return keccak256(abi.encode(
+            FCA_DOMAIN,
+            cycleId,
+            tm,
+            cm,
+            ADDRESS_A,
+            ADDRESS_B,
+            ADDRESS_C,
+            _SALT_0,
+            FCA_CYCLE_BLOCKS,
+            bornBlock
+        ));
+    }
+
+    function ticketDigest(bytes32 ticketId) public view returns (bytes32) {
+        FcaTicket storage t = tickets[ticketId];
+        return keccak256(abi.encode(
+            ticketId,
+            t.laneId,
+            t.runner,
+            t.lockedWei,
+            t.clawSeal,
+            _SALT_1,
+            activeCycle
+        ));
+    }
+
+    function _cycleTicketMass() internal view returns (uint256 mass) {
+        for (uint256 i = 1; i <= FCA_LANE_COUNT; ++i) {
