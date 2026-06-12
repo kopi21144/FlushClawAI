@@ -124,3 +124,129 @@ contract FlushClawAI {
         bytes32 outcomeHash;
         uint16 flushRating;
         uint64 queuedAt;
+    }
+
+    struct FcaBurst {
+        uint256 laneId;
+        bytes32 burstTag;
+        bytes32 ductHash;
+        uint16 pressureBand;
+        uint64 stampedAt;
+    }
+
+    struct FcaCycleRing {
+        uint64 openedAt;
+        uint256 ticketMass;
+        uint256 cascadeMass;
+        bytes32 ringDigest;
+    }
+
+    struct FcaRunnerBench {
+        bool active;
+        bytes32 tag;
+        uint64 joinedAt;
+        uint32 ticketCount;
+    }
+
+    uint256 public constant FCA_TIER_CAP = 8;
+    uint256 public constant FCA_TICKET_FEE = 0.005 ether;
+    uint256 public constant FCA_FLUSHER_BOND = 0.04 ether;
+    uint256 public constant FCA_MAX_TICKETS = 178;
+    uint256 public constant FCA_OPEN_CASCADE_CAP = 71;
+    uint256 public constant FCA_FLUSH_FLOOR = 415;
+    uint256 public constant FCA_FLUSH_CEIL = 8375;
+    uint256 public constant FCA_CYCLE_BLOCKS = 520;
+    uint256 public constant FCA_MASS_CAP = 16587;
+    uint256 public constant FCA_RATING_FLOOR = 328;
+    uint256 public constant FCA_RATING_CEIL = 7751;
+    uint256 public constant FCA_LANE_COUNT = 21;
+
+    bytes32 private constant _SALT_0 = 0x2558b2be49ec3bad79dfef16e6385c1b3c80e134e25fee605c95125304f58523;
+    bytes32 private constant _SALT_1 = 0x35b02cfede838780a8ebe475affefd4fc6eb33aa30809807a8615763937f48ea;
+    bytes32 private constant _SALT_2 = 0x65d7818e940bcd3b3ebfe42d7231e66e00da16f1a35f9ce6e54095277ba4fc89;
+    bytes32 private constant _SALT_3 = 0x91fdada9f13b5906ca2ab1a6ef05d0917686ff4b99da4d1dcca2e68b91f57967;
+    bytes32 private constant _SALT_4 = 0x49060685b6cc4782c7b290f1f5e57b063af1e70a9c81c7d47b30431315a590eb;
+    bytes32 private constant _SALT_5 = 0xbf92eb3073a18681650be4ef5a1f1c7c018a2e34c77c14c19740663f96edfbc8;
+    bytes32 private constant _SALT_6 = 0x44d45f84c1b69a4d8913f7315733f7abe576d7fcc07fbef60171841e3570afdc;
+    bytes32 private constant _SALT_7 = 0x97b36661868ba2a098505260463d95497d4f7af485e7fa219cf02b72bb20d1c1;
+    bytes32 private constant FCA_DOMAIN = keccak256("FlushClawAI.hydraulicLane");
+
+    address public immutable pitMaster;
+    address public immutable ADDRESS_A;
+    address public immutable ADDRESS_B;
+    address public immutable ADDRESS_C;
+
+    address public flusher;
+    bool public halted;
+    uint256 public activeCycle;
+    uint256 public rippleSerial;
+    uint256 public openCascades;
+    uint256 public escrowWei;
+    uint256 public bornBlock;
+    uint256 public laneSerial;
+
+    mapping(uint256 => FcaLane) public lanes;
+    mapping(bytes32 => FcaTicket) public tickets;
+    mapping(bytes32 => FcaCascade) public cascades;
+    mapping(bytes32 => FcaBurst) public bursts;
+    mapping(uint256 => FcaCycleRing) public cycleRings;
+    mapping(uint256 => mapping(address => uint256)) public runnerMass;
+    mapping(bytes32 => mapping(address => bool)) public voteCast;
+    mapping(bytes32 => bool) public ticketIdUsed;
+    mapping(bytes32 => bool) public cascadeIdUsed;
+    mapping(bytes32 => bool) public burstIdUsed;
+    mapping(address => FcaRunnerBench) public runnerBenches;
+    mapping(address => bytes32[]) private _ticketsByRunner;
+    bytes32[] private _ticketRoll;
+    uint256 private _guard;
+
+    modifier nonReentrant() {
+        if (_guard == 2) revert FCA_Reentered();
+        _guard = 2;
+        _;
+        _guard = 1;
+    }
+
+    modifier onlyPitMaster() {
+        if (msg.sender != pitMaster) revert FCA_NotPitMaster();
+        _;
+    }
+
+    modifier onlyFlusher() {
+        if (msg.sender != flusher) revert FCA_NotFlusher();
+        _;
+    }
+
+    modifier whenRunning() {
+        if (halted) revert FCA_Halted();
+        _;
+    }
+
+    modifier onlyActiveRunner() {
+        if (!runnerBenches[msg.sender].active) revert FCA_NotRunner();
+        _;
+    }
+
+    constructor() {
+        pitMaster = msg.sender;
+        ADDRESS_A = 0x2B75f7f6f428b2F55a213d782f1935CbC8D06140;
+        ADDRESS_B = 0x08497A578575B3381b9a62222ECe51827728c938;
+        ADDRESS_C = 0x8A7366B486B8617581D8ec1458e8718510124Aef;
+        flusher = ADDRESS_A;
+        _guard = 1;
+        bornBlock = block.number;
+        activeCycle = 1;
+        laneSerial = FCA_LANE_COUNT;
+        _beginCycle(1);
+        _bootLanes();
+    }
+
+    receive() external payable {
+        emit NativeReceived(msg.sender, msg.value, block.number);
+        emit Ripple_0(rippleSerial, msg.sender, msg.value, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    fallback() external payable {
+        revert FCA_FallbackBlocked();
+    }
