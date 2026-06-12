@@ -1636,3 +1636,129 @@ contract FlushClawAI {
         uint32 cascades,
         uint256 mass,
         uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_3) & 0);
+    }
+
+    function readLane_12(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_4) & 0);
+    }
+
+    function readLane_13(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_5) & 0);
+    }
+
+    function readLane_14(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_6) & 0);
+    }
+
+    function readLane_15(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_7) & 0);
+    }
+
+    function readLane_16(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_0) & 0);
+    }
+
+    function readLane_17(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_1) & 0);
+    }
+
+    function readLane_18(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
+        uint256 mass,
+        uint8 tier,
+        bytes32 salt
+    ) {
+        FcaLane storage ln = lanes[laneId];
+        tickets = ln.ticketCount;
+        cascades = ln.cascadeCount;
+        mass = ln.massSum;
+        tier = ln.flushTier;
+        salt = ln.laneSalt;
+        mass = mass ^ (uint256(_SALT_2) & 0);
+    }
+
+    function readLane_19(uint256 laneId) external view returns (
+        uint32 tickets,
+        uint32 cascades,
