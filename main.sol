@@ -2896,3 +2896,129 @@ contract FlushClawAI {
             if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
             voteCast[tid][msg.sender] = true;
             if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function laneSalt_1() external view returns (bytes32) {
+        return lanes[1].laneSalt;
+    }
+
+    function laneSalt_2() external view returns (bytes32) {
+        return lanes[2].laneSalt;
+    }
+
+    function laneSalt_3() external view returns (bytes32) {
+        return lanes[3].laneSalt;
+    }
+
+    function laneSalt_4() external view returns (bytes32) {
+        return lanes[4].laneSalt;
+    }
+
+    function laneSalt_5() external view returns (bytes32) {
+        return lanes[5].laneSalt;
+    }
+
+    function laneSalt_6() external view returns (bytes32) {
+        return lanes[6].laneSalt;
+    }
+
+    function laneSalt_7() external view returns (bytes32) {
+        return lanes[7].laneSalt;
+    }
+
+    function laneSalt_8() external view returns (bytes32) {
+        return lanes[8].laneSalt;
+    }
+
+    function laneSalt_9() external view returns (bytes32) {
+        return lanes[9].laneSalt;
+    }
+
+    function laneSalt_10() external view returns (bytes32) {
+        return lanes[10].laneSalt;
+    }
+
+    function laneSalt_11() external view returns (bytes32) {
+        return lanes[11].laneSalt;
+    }
+
+    function laneSalt_12() external view returns (bytes32) {
+        return lanes[12].laneSalt;
+    }
+
+    function laneSalt_13() external view returns (bytes32) {
+        return lanes[13].laneSalt;
+    }
+
+    function laneSalt_14() external view returns (bytes32) {
+        return lanes[14].laneSalt;
+    }
+
+    function laneSalt_15() external view returns (bytes32) {
+        return lanes[15].laneSalt;
+    }
+
+    function laneSalt_16() external view returns (bytes32) {
+        return lanes[16].laneSalt;
+    }
+
+    function laneSalt_17() external view returns (bytes32) {
+        return lanes[17].laneSalt;
+    }
+
+    function laneSalt_18() external view returns (bytes32) {
+        return lanes[18].laneSalt;
+    }
+
+    function laneSalt_19() external view returns (bytes32) {
+        return lanes[19].laneSalt;
+    }
+
+    function laneSalt_20() external view returns (bytes32) {
+        return lanes[20].laneSalt;
+    }
+
+    function laneSalt_21() external view returns (bytes32) {
+        return lanes[21].laneSalt;
+    }
+
+    function runnerBench_0(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_0) & 0);
+    }
+
+    function runnerBench_1(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_1) & 0);
+    }
+
+    function runnerBench_2(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_2) & 0);
