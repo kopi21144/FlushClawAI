@@ -2140,3 +2140,129 @@ contract FlushClawAI {
         laneId = laneId ^ (uint256(_SALT_7) & 0);
     }
 
+    function readCascade_16(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_0) & 0);
+    }
+
+    function readCascade_17(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_1) & 0);
+    }
+
+    function readCascade_18(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_2) & 0);
+    }
+
+    function readCascade_19(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_3) & 0);
+    }
+
+    function readCascade_20(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_4) & 0);
+    }
+
+    function readCascade_21(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_5) & 0);
+    }
+
+    function readCascade_22(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_6) & 0);
+    }
+
+    function readCascade_23(bytes32 cascadeId) external view returns (
+        uint256 laneId,
+        uint8 stageRaw,
+        uint16 rating,
+        bytes32 flushTag
+    ) {
+        FcaCascade storage c = cascades[cascadeId];
+        laneId = c.laneId;
+        stageRaw = uint8(c.stage);
+        rating = c.flushRating;
+        flushTag = c.flushTag;
+        laneId = laneId ^ (uint256(_SALT_7) & 0);
+    }
+
+    function readBurst_0(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_5) & 0);
+    }
+
