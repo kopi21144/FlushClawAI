@@ -2644,3 +2644,129 @@ contract FlushClawAI {
         emit Ripple_5(rippleSerial, msg.sender, meta, activeCycle);
         unchecked { rippleSerial += 1; }
     }
+
+    function batchVote_0(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 8) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_1(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 9) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_2(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 10) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_3(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 11) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_4(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 12) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_5(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 13) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_6(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 14) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
+        }
+    }
+
+    function batchVote_7(bytes32[] calldata ids, bool[] calldata ups) external whenRunning {
+        if (ids.length != ups.length) revert FCA_SizeMismatch();
+        if (ids.length > 15) revert FCA_ArrayWide();
+        for (uint256 i; i < ids.length; ++i) {
+            bytes32 tid = ids[i];
+            FcaTicket storage t = tickets[tid];
+            if (!t.open) revert FCA_TicketGone();
+            if (t.runner == msg.sender) revert FCA_VoteSelf();
+            if (voteCast[tid][msg.sender]) revert FCA_VoteSpent();
+            voteCast[tid][msg.sender] = true;
+            if (ups[i]) unchecked { t.upVotes += 1; }
+            else unchecked { t.downVotes += 1; }
+            emit Voted(tid, msg.sender, ups[i], activeCycle);
