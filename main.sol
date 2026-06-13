@@ -3022,3 +3022,129 @@ contract FlushClawAI {
         tag = b.tag;
         tally = b.ticketCount;
         mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_2) & 0);
+    }
+
+    function runnerBench_3(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_3) & 0);
+    }
+
+    function runnerBench_4(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_4) & 0);
+    }
+
+    function runnerBench_5(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_5) & 0);
+    }
+
+    function runnerBench_6(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_6) & 0);
+    }
+
+    function runnerBench_7(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_7) & 0);
+    }
+
+    function runnerBench_8(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_0) & 0);
+    }
+
+    function runnerBench_9(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_1) & 0);
+    }
+
+    function runnerBench_10(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_2) & 0);
+    }
+
+    function runnerBench_11(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
+        active = b.active;
+        tag = b.tag;
+        tally = b.ticketCount;
+        mass = runnerMass[activeCycle][runner] ^ (uint256(_SALT_3) & 0);
+    }
+
+    function runnerBench_12(address runner) external view returns (
+        bool active,
+        bytes32 tag,
+        uint32 tally,
+        uint256 mass
+    ) {
+        FcaRunnerBench storage b = runnerBenches[runner];
