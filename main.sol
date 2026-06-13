@@ -2518,3 +2518,129 @@ contract FlushClawAI {
         laneId = laneId ^ (uint256(_SALT_7) & 0);
     }
 
+    function readBurst_19(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_0) & 0);
+    }
+
+    function markCascadeActive(bytes32 cascadeId) external onlyFlusher {
+        FcaCascade storage c = cascades[cascadeId];
+        if (c.stage != FcaCascadeStage.Waiting) revert FCA_CascadeGone();
+        c.stage = FcaCascadeStage.Active;
+    }
+
+    function scrapCascade(bytes32 cascadeId) external onlyFlusher {
+        FcaCascade storage c = cascades[cascadeId];
+        if (c.stage == FcaCascadeStage.Finalized) revert FCA_CascadeDone();
+        c.stage = FcaCascadeStage.Scraped;
+        if (openCascades > 0) unchecked { openCascades -= 1; }
+    }
+
+    function flusherRipple_0(uint256 meta) external onlyFlusher {
+        emit Ripple_0(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_1(uint256 meta) external onlyFlusher {
+        emit Ripple_1(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_2(uint256 meta) external onlyFlusher {
+        emit Ripple_2(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_3(uint256 meta) external onlyFlusher {
+        emit Ripple_3(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_4(uint256 meta) external onlyFlusher {
+        emit Ripple_4(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_5(uint256 meta) external onlyFlusher {
+        emit Ripple_5(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_6(uint256 meta) external onlyFlusher {
+        emit Ripple_6(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_7(uint256 meta) external onlyFlusher {
+        emit Ripple_7(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_8(uint256 meta) external onlyFlusher {
+        emit Ripple_8(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_9(uint256 meta) external onlyFlusher {
+        emit Ripple_9(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_10(uint256 meta) external onlyFlusher {
+        emit Ripple_10(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_11(uint256 meta) external onlyFlusher {
+        emit Ripple_11(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_12(uint256 meta) external onlyFlusher {
+        emit Ripple_12(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_13(uint256 meta) external onlyFlusher {
+        emit Ripple_13(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_14(uint256 meta) external onlyFlusher {
+        emit Ripple_0(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_15(uint256 meta) external onlyFlusher {
+        emit Ripple_1(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_16(uint256 meta) external onlyFlusher {
+        emit Ripple_2(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_17(uint256 meta) external onlyFlusher {
+        emit Ripple_3(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_18(uint256 meta) external onlyFlusher {
+        emit Ripple_4(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
+
+    function flusherRipple_19(uint256 meta) external onlyFlusher {
+        emit Ripple_5(rippleSerial, msg.sender, meta, activeCycle);
+        unchecked { rippleSerial += 1; }
+    }
