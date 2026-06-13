@@ -2266,3 +2266,129 @@ contract FlushClawAI {
         laneId = laneId ^ (uint256(_SALT_5) & 0);
     }
 
+    function readBurst_1(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_6) & 0);
+    }
+
+    function readBurst_2(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_7) & 0);
+    }
+
+    function readBurst_3(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_0) & 0);
+    }
+
+    function readBurst_4(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_1) & 0);
+    }
+
+    function readBurst_5(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_2) & 0);
+    }
+
+    function readBurst_6(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_3) & 0);
+    }
+
+    function readBurst_7(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_4) & 0);
+    }
+
+    function readBurst_8(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_5) & 0);
+    }
+
+    function readBurst_9(bytes32 burstId) external view returns (
+        uint256 laneId,
+        uint16 pressure,
+        bytes32 burstTag,
+        bytes32 duct
+    ) {
+        FcaBurst storage b = bursts[burstId];
+        laneId = b.laneId;
+        pressure = b.pressureBand;
+        burstTag = b.burstTag;
+        duct = b.ductHash;
+        laneId = laneId ^ (uint256(_SALT_6) & 0);
+    }
+
